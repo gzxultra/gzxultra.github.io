@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
+title: Zephyr
+subtitle: Engineering to perfection
 description:
 keywords:
-author: John Doe
-language:
-timezone:
+author: Zhixiang Gu
+language: en
+timezone: America/Indiana/Indianapolis
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://gzxultra.github.io
+url: https://gzxultra.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
