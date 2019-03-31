@@ -242,23 +242,49 @@ img.thumbnail {
 }
 @media screen and (max-width: 768px) {
   #toc {
-    margin: 0 0.5em;
-    padding: 0.5em 1em;
-    border: 1px solid #c0c0c0;
-    background-color: #ecf5ff;
-    float: right;
+    display: none;
+    position: fixed;
+    margin: 1rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+  }
+  #toc-mask {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    background: rgba(0,0,0,0.7);
+  }
+  #toc.is-active,
+  #toc-mask.is-active {
     display: block;
-    font-size: 90%;
   }
-  #toc > #toctitle {
-    display: block;
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 1em;
-  }
-  #toc ul {
-    margin: 0;
-  }
+}
+/* Table of Contents */
+#toc {
+  margin: 0 0.5em;
+  padding: 0.5em 1em;
+  border: 1px solid #c0c0c0;
+  background-color: #ecf5ff;
+  float: right;
+  display: block;
+  font-size: 90%;
+}
+#toc > #toctitle {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+#toc ul {
+  margin: 0;
 }
 /* ---------------------------------
  *         Custom modifiers
