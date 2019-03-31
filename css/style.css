@@ -251,6 +251,8 @@ img.thumbnail {
     z-index: 100;
     max-height: calc(100vh - 2rem);
     overflow-y: auto;
+    background-color: #ecf5ff;
+    border: 1px solid #c0c0c0;
   }
   #toc-mask {
     display: none;
