@@ -373,6 +373,9 @@ img.thumbnail {
 }
 .content h2 {
   font-size: 1.5em;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+  overflow: hidden;
 }
 .content h3 {
   font-size: 1.25em;
