@@ -17,7 +17,7 @@
 <meta property="og:description" content="HTTP CODE">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.imgur.com/jqczRYe.png">
-<meta property="og:updated_time" content="2019-03-31T05:35:14.358Z">
+<meta property="og:updated_time" content="2019-03-31T05:38:48.063Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP-CODE">
 <meta name="twitter:description" content="HTTP CODE">
@@ -180,7 +180,13 @@
         </h1>
         <div class="content">
             <h2 id="Information-responses"><a href="#Information-responses" class="headerlink" title="Information responses"></a>Information responses</h2><h3 id="100-Continue"><a href="#100-Continue" class="headerlink" title="100 Continue"></a>100 Continue</h3><p>This interim response indicates that everything so far is OK and that the client should continue with the request or ignore it if it is already finished.<br>101 Switching Protocol<br>This code is sent in response to an Upgrade: request header by the client, and indicates that the protocol the server is switching too. It was introduced to allow migration to an incompatible protocol version, and is not in common use.</p>
-<h2 id="Successful-responses"><a href="#Successful-responses" class="headerlink" title="Successful responses"></a>Successful responses</h2><h3 id="200-OK"><a href="#200-OK" class="headerlink" title="200 OK"></a>200 OK</h3><p>The request has succeeded. The meaning of a success varies depending on the HTTP method:<br>GET: The resource has been fetched and is transmitted in the message body.<br>HEAD: The entity headers are in the message body.<br>POST: The resource describing the result of the action is transmitted in the message body.<br>TRACE: The message body contains the request message as received by the server</p>
+<h2 id="Successful-responses"><a href="#Successful-responses" class="headerlink" title="Successful responses"></a>Successful responses</h2><h3 id="200-OK"><a href="#200-OK" class="headerlink" title="200 OK"></a>200 OK</h3><p>The request has succeeded. The meaning of a success varies depending on the HTTP method:</p>
+<ul>
+<li>GET: The resource has been fetched and is transmitted in the message body.</li>
+<li>HEAD: The entity headers are in the message body.</li>
+<li>POST: The resource describing the result of the action is transmitted in the message body.</li>
+<li>TRACE: The message body contains the request message as received by the server</li>
+</ul>
 <a id="more"></a>
 <h3 id="201-Created"><a href="#201-Created" class="headerlink" title="201 Created"></a>201 Created</h3><p>The request has succeeded and a new resource has been created as a result of it. This is typically the response sent after a PUT request.</p>
 <h3 id="202-Accepted"><a href="#202-Accepted" class="headerlink" title="202 Accepted"></a>202 Accepted</h3><p>The request has been received but not yet acted upon. It is non-committal, meaning that there is no way in HTTP to later send an asynchronous response indicating the outcome of processing the request. It is intended for cases where another process or server handles the request, or for batch processing.</p>

@@ -180,7 +180,13 @@
         </h1>
         <div class="content">
             <h2 id="Information-responses"><a href="#Information-responses" class="headerlink" title="Information responses"></a>Information responses</h2><h3 id="100-Continue"><a href="#100-Continue" class="headerlink" title="100 Continue"></a>100 Continue</h3><p>This interim response indicates that everything so far is OK and that the client should continue with the request or ignore it if it is already finished.<br>101 Switching Protocol<br>This code is sent in response to an Upgrade: request header by the client, and indicates that the protocol the server is switching too. It was introduced to allow migration to an incompatible protocol version, and is not in common use.</p>
-<h2 id="Successful-responses"><a href="#Successful-responses" class="headerlink" title="Successful responses"></a>Successful responses</h2><h3 id="200-OK"><a href="#200-OK" class="headerlink" title="200 OK"></a>200 OK</h3><p>The request has succeeded. The meaning of a success varies depending on the HTTP method:<br>GET: The resource has been fetched and is transmitted in the message body.<br>HEAD: The entity headers are in the message body.<br>POST: The resource describing the result of the action is transmitted in the message body.<br>TRACE: The message body contains the request message as received by the server</p>
+<h2 id="Successful-responses"><a href="#Successful-responses" class="headerlink" title="Successful responses"></a>Successful responses</h2><h3 id="200-OK"><a href="#200-OK" class="headerlink" title="200 OK"></a>200 OK</h3><p>The request has succeeded. The meaning of a success varies depending on the HTTP method:</p>
+<ul>
+<li>GET: The resource has been fetched and is transmitted in the message body.</li>
+<li>HEAD: The entity headers are in the message body.</li>
+<li>POST: The resource describing the result of the action is transmitted in the message body.</li>
+<li>TRACE: The message body contains the request message as received by the server</li>
+</ul>
         </div>
         
         
