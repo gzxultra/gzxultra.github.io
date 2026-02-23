@@ -21,17 +21,22 @@
     }
 
     :root {
-      --bg: #FAFBFC;
-      --surface: #FFFFFF;
-      --text-primary: #111827;
-      --text-secondary: #6B7280;
-      --text-tertiary: #9CA3AF;
-      --border: rgba(0,0,0,0.06);
-      --border-hover: rgba(0,0,0,0.1);
+      /* Happy Hues Palette 3 — happyhues.co/palettes/3 */
+      --bg: #fffffe;
+      --surface: #fffffe;
+      --surface-alt: #d8eefe;
+      --text-primary: #094067;
+      --text-secondary: #5f6c7b;
+      --text-tertiary: #90b4ce;
+      --accent: #3da9fc;
+      --accent-text: #fffffe;
+      --highlight: #ef4565;
+      --border: rgba(9,64,103,0.08);
+      --border-hover: rgba(9,64,103,0.14);
       --radius: 20px;
       --radius-sm: 12px;
-      --shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.04);
-      --shadow-card-hover: 0 20px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.06);
+      --shadow-card: 0 1px 3px rgba(9,64,103,0.06), 0 0 0 1px rgba(9,64,103,0.04);
+      --shadow-card-hover: 0 20px 40px rgba(9,64,103,0.10), 0 0 0 1px rgba(9,64,103,0.08);
       --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
@@ -68,7 +73,7 @@
     .ambient-blob:nth-child(1) {
       width: 500px;
       height: 500px;
-      background: #DBEAFE;
+      background: #d8eefe;
       top: -10%;
       right: -5%;
       animation: drift1 22s ease-in-out infinite;
@@ -77,7 +82,7 @@
     .ambient-blob:nth-child(2) {
       width: 400px;
       height: 400px;
-      background: #FDE68A;
+      background: #90b4ce;
       bottom: -5%;
       left: -5%;
       animation: drift2 26s ease-in-out infinite;
@@ -86,7 +91,7 @@
     .ambient-blob:nth-child(3) {
       width: 350px;
       height: 350px;
-      background: #A7F3D0;
+      background: #ef4565;
       top: 40%;
       left: 50%;
       animation: drift3 20s ease-in-out infinite;
@@ -137,7 +142,7 @@
       width: 38px;
       height: 38px;
       border-radius: 11px;
-      background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+      background: linear-gradient(135deg, #094067 0%, #3da9fc 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -203,14 +208,14 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #34D399;
-      box-shadow: 0 0 8px rgba(52, 211, 153, 0.4);
+      background: #3da9fc;
+      box-shadow: 0 0 8px rgba(61, 169, 252, 0.4);
       animation: glow 2.5s ease-in-out infinite;
     }
 
     @keyframes glow {
-      0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(52, 211, 153, 0.4); }
-      50% { opacity: 0.5; box-shadow: 0 0 4px rgba(52, 211, 153, 0.2); }
+      0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(61, 169, 252, 0.4); }
+      50% { opacity: 0.5; box-shadow: 0 0 4px rgba(61, 169, 252, 0.2); }
     }
 
     .hero h1 {
@@ -266,7 +271,7 @@
       position: relative;
       height: 200px;
       overflow: hidden;
-      background: #F3F4F6;
+      background: #d8eefe;
     }
 
     .card-img {
@@ -311,9 +316,9 @@
     }
 
     .card-badge.live {
-      background: rgba(255,255,255,0.88);
-      color: #059669;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      background: rgba(255,255,255,0.92);
+      color: #3da9fc;
+      box-shadow: 0 2px 8px rgba(9,64,103,0.10);
     }
 
     .card-badge.live::before {
@@ -321,13 +326,13 @@
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: #059669;
+      background: #3da9fc;
     }
 
     .card-badge.dev {
-      background: rgba(255,255,255,0.88);
-      color: #D97706;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      background: rgba(255,255,255,0.92);
+      color: #ef4565;
+      box-shadow: 0 2px 8px rgba(9,64,103,0.10);
     }
 
     .card-badge.dev::before {
@@ -335,7 +340,7 @@
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: #D97706;
+      background: #ef4565;
     }
 
     /* Card body */
@@ -383,8 +388,8 @@
       border-radius: 6px;
       font-size: 11px;
       font-weight: 500;
-      color: var(--text-secondary);
-      background: var(--bg);
+      color: #094067;
+      background: #d8eefe;
     }
 
     .card-action {
