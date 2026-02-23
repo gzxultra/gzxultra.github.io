@@ -732,254 +732,318 @@
             font-size: 10px;
         }
 
-        /* ===== AI Daily Digest - Pixel Art Card ===== */
+        /* ===== AI Daily Digest - DRAMATIC Pixel Art Card ===== */
         .project-card.pixel-card {
-            background: #1a1a2e;
-            border: 4px solid #3a3a5c;
-            border-radius: 0;
-            box-shadow:
-                inset 0 0 0 2px #1a1a2e,
-                inset 0 0 0 4px #3a3a5c,
-                0 0 0 2px #1a1a2e,
-                8px 8px 0 0 rgba(58, 58, 92, 0.3);
-            image-rendering: pixelated;
-            position: relative;
-            overflow: hidden;
-            padding: 0;
+            background: #0a0a1a !important;
+            border: none !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            position: relative !important;
+            overflow: hidden !important;
+            direction: ltr !important;
+            box-shadow: 12px 12px 0 0 #00ff88, 0 0 60px rgba(0, 255, 136, 0.15) !important;
+            grid-template-columns: 1.1fr 1fr !important;
+            grid-template-rows: auto 1fr !important;
         }
 
         .project-card.pixel-card:hover {
-            box-shadow:
-                inset 0 0 0 2px #1a1a2e,
-                inset 0 0 0 4px #5a5a8c,
-                0 0 0 2px #1a1a2e,
-                8px 8px 0 0 rgba(58, 58, 92, 0.4),
-                0 0 30px rgba(100, 200, 255, 0.08);
-            transform: translateY(-2px);
+            box-shadow: 12px 12px 0 0 #00ff88, 0 0 80px rgba(0, 255, 136, 0.25), 0 0 120px rgba(0, 255, 136, 0.1) !important;
+            transform: translateY(-4px) !important;
         }
 
-        /* Pixel grid background */
+        /* Neon green border - double pixel border */
         .project-card.pixel-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(100, 200, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(100, 200, 255, 0.03) 1px, transparent 1px);
-            background-size: 16px 16px;
-            pointer-events: none;
-            z-index: 1;
+            content: '' !important;
+            position: absolute !important;
+            inset: 0 !important;
+            border: 4px solid #00ff88 !important;
+            box-shadow: inset 0 0 0 6px #0a0a1a, inset 0 0 0 8px #00ff8844 !important;
+            z-index: 5 !important;
+            pointer-events: none !important;
+            background: none !important;
         }
 
-        /* Scanline effect */
+        /* Animated scanlines */
         .project-card.pixel-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
+            content: '' !important;
+            position: absolute !important;
+            inset: 0 !important;
             background: repeating-linear-gradient(
                 0deg,
                 transparent,
-                transparent 2px,
-                rgba(0, 0, 0, 0.08) 2px,
-                rgba(0, 0, 0, 0.08) 4px
-            );
+                transparent 3px,
+                rgba(0, 255, 136, 0.03) 3px,
+                rgba(0, 255, 136, 0.03) 6px
+            ) !important;
+            pointer-events: none !important;
+            z-index: 4 !important;
+            animation: scanline-scroll 8s linear infinite !important;
+        }
+
+        @keyframes scanline-scroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(6px); }
+        }
+
+        /* Pixel grid overlay via extra element */
+        .pixel-card .pixel-grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 255, 136, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.04) 1px, transparent 1px);
+            background-size: 12px 12px;
             pointer-events: none;
-            z-index: 2;
+            z-index: 3;
         }
 
         .pixel-card .project-img-wrap {
-            border-radius: 0;
-            border-right: 4px solid #3a3a5c;
-            position: relative;
+            border-radius: 0 !important;
+            border-right: 4px solid #00ff88 !important;
+            position: relative !important;
         }
 
         .pixel-card .project-img-wrap img {
-            filter: contrast(1.1) saturate(0.9);
-            image-rendering: auto;
+            filter: saturate(0.5) brightness(0.8) contrast(1.2) !important;
+            image-rendering: auto !important;
         }
 
         .pixel-card:hover .project-img-wrap img {
-            transform: scale(1.03);
-            filter: contrast(1.15) saturate(1);
+            filter: saturate(0.7) brightness(0.9) contrast(1.2) !important;
+            transform: scale(1.03) !important;
         }
 
-        /* Pixel image overlay - CRT corners */
         .pixel-card .project-img-wrap::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            z-index: 3;
-            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.4);
-            pointer-events: none;
+            content: '' !important;
+            position: absolute !important;
+            inset: 0 !important;
+            z-index: 3 !important;
+            background: linear-gradient(135deg, rgba(0,255,136,0.08) 0%, transparent 50%, rgba(0,255,136,0.05) 100%) !important;
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.6) !important;
+            pointer-events: none !important;
         }
 
         .pixel-card .project-img-wrap::after {
-            content: '>';
-            position: absolute;
-            bottom: 12px; right: 12px;
-            width: auto; height: auto;
-            background: none;
-            clip-path: none;
-            font-family: var(--font-pixel);
-            font-size: 14px;
-            color: #64c8ff;
-            opacity: 0.7;
-            animation: cursor-blink 1s step-end infinite;
-            image-rendering: auto;
+            content: '> _' !important;
+            position: absolute !important;
+            bottom: 16px !important; right: 16px !important;
+            width: auto !important; height: auto !important;
+            background: rgba(0,0,0,0.7) !important;
+            clip-path: none !important;
+            font-family: var(--font-pixel) !important;
+            font-size: 12px !important;
+            color: #00ff88 !important;
+            opacity: 1 !important;
+            padding: 4px 10px !important;
+            border: 1px solid #00ff8844 !important;
+            animation: cursor-blink 1s step-end infinite !important;
+            image-rendering: auto !important;
+            z-index: 5 !important;
         }
 
         @keyframes cursor-blink {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 0; }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
         .pixel-card .project-content {
-            position: relative;
-            z-index: 3;
-            padding: 32px 28px 32px 20px;
+            position: relative !important;
+            z-index: 6 !important;
+            padding: 36px 32px 36px 24px !important;
+            background: linear-gradient(180deg, #0a0a1a 0%, #0d1117 100%) !important;
         }
 
         .pixel-card .project-number {
-            font-family: var(--font-pixel);
-            font-size: 10px;
-            color: #5a5a8c;
-            letter-spacing: 0.05em;
+            font-family: var(--font-pixel) !important;
+            font-size: 10px !important;
+            color: #00ff88 !important;
+            letter-spacing: 0.1em !important;
+            opacity: 0.6 !important;
         }
 
         .pixel-card .project-status {
-            background: rgba(100, 200, 255, 0.1);
-            color: #64c8ff;
-            border: 2px solid #64c8ff;
-            border-radius: 0;
-            font-family: var(--font-pixel);
-            font-size: 10px;
-            padding: 4px 12px;
-            position: relative;
+            background: rgba(0, 255, 136, 0.12) !important;
+            color: #00ff88 !important;
+            border: 2px solid #00ff88 !important;
+            border-radius: 0 !important;
+            font-family: var(--font-pixel) !important;
+            font-size: 10px !important;
+            padding: 5px 14px !important;
+            position: relative !important;
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.5) !important;
         }
 
         .pixel-card .project-status .status-dot {
-            background: #64c8ff;
-            width: 6px; height: 6px;
-            animation: blink 0.8s step-end infinite;
+            background: #00ff88 !important;
+            width: 6px !important; height: 6px !important;
+            box-shadow: 0 0 6px #00ff88 !important;
+            animation: blink 0.8s step-end infinite !important;
         }
 
         .pixel-card .project-title {
-            font-family: var(--font-pixel);
-            font-size: 24px;
-            font-weight: 700;
-            color: #e8e8ff;
-            letter-spacing: 0.02em;
-            text-shadow: 2px 2px 0 rgba(100, 200, 255, 0.15);
-            line-height: 1.3;
+            font-family: var(--font-pixel) !important;
+            font-size: 28px !important;
+            font-weight: 700 !important;
+            color: #ffffff !important;
+            letter-spacing: 0.04em !important;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.3), 3px 3px 0 #00ff8833 !important;
+            line-height: 1.4 !important;
         }
 
         .pixel-card .project-desc {
-            font-family: var(--font-pixel);
-            font-size: 11px;
-            color: #9a9abf;
-            line-height: 2;
-            letter-spacing: 0.02em;
+            font-family: var(--font-pixel) !important;
+            font-size: 10px !important;
+            color: #88ffbb !important;
+            line-height: 2.2 !important;
+            letter-spacing: 0.03em !important;
+            opacity: 0.7 !important;
         }
 
         .pixel-card .project-tags {
-            gap: 8px;
+            gap: 8px !important;
         }
 
         .pixel-card .project-tags span {
-            font-family: var(--font-pixel);
-            font-size: 9px;
-            background: rgba(100, 200, 255, 0.08);
-            color: #64c8ff;
-            border: 1px solid rgba(100, 200, 255, 0.25);
-            border-radius: 0;
-            padding: 4px 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            font-family: var(--font-pixel) !important;
+            font-size: 9px !important;
+            background: rgba(0, 255, 136, 0.08) !important;
+            color: #00ff88 !important;
+            border: 1px solid rgba(0, 255, 136, 0.3) !important;
+            border-radius: 0 !important;
+            padding: 5px 12px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
         }
 
         .pixel-card .project-link-primary {
-            font-family: var(--font-pixel);
-            font-size: 11px;
-            background: #64c8ff;
-            color: #1a1a2e;
-            border-radius: 0;
-            padding: 10px 20px;
-            border: none;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            box-shadow: 4px 4px 0 rgba(100, 200, 255, 0.3);
-            transition: all 0.15s step-end;
+            font-family: var(--font-pixel) !important;
+            font-size: 12px !important;
+            background: #00ff88 !important;
+            color: #0a0a1a !important;
+            border-radius: 0 !important;
+            padding: 12px 24px !important;
+            border: none !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            box-shadow: 6px 6px 0 rgba(0, 255, 136, 0.4) !important;
+            transition: all 0.1s step-end !important;
+            text-shadow: none !important;
         }
 
         .pixel-card .project-link-primary:hover {
-            background: #8dd8ff;
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0 rgba(100, 200, 255, 0.4);
+            background: #33ffaa !important;
+            transform: translate(-3px, -3px) !important;
+            box-shadow: 9px 9px 0 rgba(0, 255, 136, 0.5) !important;
         }
 
         .pixel-card .project-link-ghost {
-            font-family: var(--font-pixel);
-            font-size: 11px;
-            color: #9a9abf;
-            border: 2px solid #3a3a5c;
-            border-radius: 0;
-            padding: 8px 16px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            font-family: var(--font-pixel) !important;
+            font-size: 12px !important;
+            color: #00ff88 !important;
+            border: 2px solid #00ff8866 !important;
+            border-radius: 0 !important;
+            padding: 10px 20px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
         }
 
         .pixel-card .project-link-ghost:hover {
-            border-color: #64c8ff;
-            color: #64c8ff;
+            border-color: #00ff88 !important;
+            color: #ffffff !important;
+            background: rgba(0, 255, 136, 0.1) !important;
         }
 
         .pixel-card .project-link-ghost svg {
-            fill: currentColor;
+            fill: currentColor !important;
         }
 
         /* Pixel art decorative elements inside the card */
         .pixel-card-decor {
             position: absolute;
-            z-index: 3;
+            z-index: 10;
             pointer-events: none;
             image-rendering: pixelated;
         }
 
         .pixel-card-decor.top-right {
-            top: 12px; right: 12px;
+            top: 16px; right: 16px;
             display: flex;
-            gap: 4px;
+            gap: 6px;
         }
 
         .pixel-card-decor.top-right span {
-            width: 8px; height: 8px;
+            width: 10px; height: 10px;
             display: block;
+            box-shadow: 0 0 4px currentColor;
         }
 
-        .pixel-card-decor.top-right span:nth-child(1) { background: #ff6b6b; }
-        .pixel-card-decor.top-right span:nth-child(2) { background: #ffd93d; }
-        .pixel-card-decor.top-right span:nth-child(3) { background: #6bff6b; }
+        .pixel-card-decor.top-right span:nth-child(1) { background: #ff4444; color: #ff4444; }
+        .pixel-card-decor.top-right span:nth-child(2) { background: #ffcc00; color: #ffcc00; }
+        .pixel-card-decor.top-right span:nth-child(3) { background: #00ff88; color: #00ff88; }
 
         .pixel-card-decor.bottom-left {
-            bottom: 16px; left: 16px;
+            bottom: 20px; left: 20px;
             font-family: var(--font-pixel);
-            font-size: 8px;
-            color: #3a3a5c;
+            font-size: 9px;
+            color: #00ff8844;
+            text-shadow: 0 0 4px rgba(0, 255, 136, 0.2);
+        }
+
+        /* Terminal header bar */
+        .pixel-card-header {
+            background: #111122;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #00ff8833;
+            position: relative;
+            z-index: 6;
+            grid-column: 1 / -1;
+        }
+
+        .pixel-card-header-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .pixel-card-header-dots span {
+            width: 10px; height: 10px;
+            display: block;
+            image-rendering: pixelated;
+        }
+
+        .pixel-card-header-dots span:nth-child(1) { background: #ff4444; box-shadow: 0 0 4px #ff4444; }
+        .pixel-card-header-dots span:nth-child(2) { background: #ffcc00; box-shadow: 0 0 4px #ffcc00; }
+        .pixel-card-header-dots span:nth-child(3) { background: #00ff88; box-shadow: 0 0 4px #00ff88; }
+
+        .pixel-card-header-title {
+            font-family: var(--font-pixel);
+            font-size: 9px;
+            color: #00ff8888;
+            letter-spacing: 0.1em;
+        }
+
+        .pixel-card-header-status {
+            font-family: var(--font-pixel);
+            font-size: 9px;
+            color: #00ff88;
+            animation: blink 1.5s step-end infinite;
         }
 
         /* Pixel card responsive */
         @media (max-width: 900px) {
             .pixel-card .project-img-wrap {
-                border-right: none;
-                border-bottom: 4px solid #3a3a5c;
+                border-right: none !important;
+                border-bottom: 4px solid #00ff88 !important;
             }
 
             .pixel-card .project-content {
-                padding: 24px;
+                padding: 24px !important;
             }
 
             .pixel-card .project-title {
-                font-size: 18px;
+                font-size: 20px !important;
             }
         }
 
@@ -1001,10 +1065,12 @@
         }
 
         .about-avatar-wrap img {
-            width: 160px; height: 160px;
-            border-radius: var(--radius);
+            width: 180px; height: 180px;
+            border-radius: 0;
             object-fit: cover;
-            border: 1px solid var(--border);
+            border: 3px solid var(--text);
+            image-rendering: pixelated;
+            box-shadow: 6px 6px 0 var(--border);
         }
 
         /* Pixel frame around avatar */
@@ -1343,13 +1409,20 @@
                     </div>
                 </div>
 
-                <!-- AI Daily Digest - Pixel Art Style -->
+                <!-- AI Daily Digest - DRAMATIC Pixel Art Terminal Card -->
                 <div class="project-card pixel-card reveal">
-                    <!-- Pixel window buttons -->
-                    <div class="pixel-card-decor top-right">
-                        <span></span><span></span><span></span>
+                    <!-- Pixel grid overlay -->
+                    <div class="pixel-grid-overlay"></div>
+                    <!-- Terminal header bar -->
+                    <div class="pixel-card-header">
+                        <div class="pixel-card-header-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <div class="pixel-card-header-title">TERMINAL://AI-DAILY-DIGEST</div>
+                        <div class="pixel-card-header-status">&#9608; LIVE</div>
                     </div>
-                    <div class="pixel-card-decor bottom-left">SYS://AI-DIGEST-v2.0</div>
+                    <!-- System info footer -->
+                    <div class="pixel-card-decor bottom-left">SYS://v2.0 | PID:8088 | MEM:OK</div>
                     <div class="project-img-wrap">
                         <img src="assets/ai-daily-digest-preview.png" alt="AI Daily Digest" loading="lazy">
                     </div>
@@ -1361,7 +1434,7 @@
                         </div>
                         <h3 class="project-title">AI Daily<br>Digest</h3>
                         <p class="project-desc">
-                            An automated AI news aggregation platform that curates the most important developments in artificial intelligence daily. Powered by LLM-based content filtering and summarization from top AI sources.
+                            > Automated AI news aggregation platform. Curates daily AI developments. LLM-powered content filtering and summarization from top sources.
                         </p>
                         <div class="project-tags">
                             <span>TypeScript</span>
@@ -1375,7 +1448,7 @@
                             </a>
                             <a href="https://github.com/gzxultra/ai-daily-digest" target="_blank" class="project-link project-link-ghost" rel="noopener">
                                 <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                                SRC
+                                VIEW_SRC
                             </a>
                         </div>
                     </div>
@@ -1429,7 +1502,7 @@
             </div>
             <div class="about-card reveal pixel-corners">
                 <div class="about-avatar-wrap">
-                    <img src="https://avatars.githubusercontent.com/u/10581586?v=4" alt="Ernie Gu" loading="lazy">
+                    <img src="assets/pixel-avatar.png" alt="Ernie Gu" loading="lazy">
                 </div>
                 <div>
                     <h3 class="about-name">Ernie Gu</h3>
