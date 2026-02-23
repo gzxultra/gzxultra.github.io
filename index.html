@@ -1,851 +1,635 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ernie Gu — Projects</title>
-    <meta name="description" content="Projects by Ernie Gu — loveveryfans, AI Daily Digest, MediMatch">
-    <meta name="author" content="Ernie Gu (gzxultra)">
-    <meta property="og:title" content="Ernie Gu — Projects">
-    <meta property="og:description" content="Projects by Ernie Gu — loveveryfans, AI Daily Digest, MediMatch">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        /* ===== Reset & Base ===== */
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: rgba(255, 255, 255, 0.03);
-            --bg-card-hover: rgba(255, 255, 255, 0.06);
-            --border-card: rgba(255, 255, 255, 0.06);
-            --border-card-hover: rgba(255, 255, 255, 0.12);
-            --text-primary: #f0f0f5;
-            --text-secondary: #8a8a9a;
-            --text-muted: #55556a;
-            --accent-green: #4ade80;
-            --accent-blue: #60a5fa;
-            --accent-purple: #a78bfa;
-            --accent-amber: #fbbf24;
-            --accent-rose: #fb7185;
-            --accent-cyan: #22d3ee;
-            --glow-green: rgba(74, 222, 128, 0.15);
-            --glow-blue: rgba(96, 165, 250, 0.15);
-            --glow-purple: rgba(167, 139, 250, 0.15);
-            --glow-amber: rgba(251, 191, 36, 0.15);
-            --glow-rose: rgba(251, 113, 133, 0.15);
-            --glow-cyan: rgba(34, 211, 238, 0.15);
-            --radius: 16px;
-            --radius-sm: 10px;
-            --radius-xs: 6px;
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            --transition-spring: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        body {
-            font-family: var(--font-sans);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        ::selection {
-            background: rgba(167, 139, 250, 0.3);
-            color: #fff;
-        }
-
-        /* ===== Background Effects ===== */
-        .bg-effects {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .bg-gradient-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.4;
-            animation: orb-float 20s ease-in-out infinite;
-        }
-
-        .bg-gradient-orb:nth-child(1) {
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(167, 139, 250, 0.12), transparent 70%);
-            top: -200px; right: -100px;
-            animation-delay: 0s;
-        }
-
-        .bg-gradient-orb:nth-child(2) {
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(96, 165, 250, 0.08), transparent 70%);
-            bottom: -150px; left: -100px;
-            animation-delay: -7s;
-            animation-duration: 25s;
-        }
-
-        .bg-gradient-orb:nth-child(3) {
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(74, 222, 128, 0.06), transparent 70%);
-            top: 40%; left: 30%;
-            animation-delay: -12s;
-            animation-duration: 30s;
-        }
-
-        .bg-noise {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            opacity: 0.015;
-            pointer-events: none;
-            z-index: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            background-repeat: repeat;
-        }
-
-        @keyframes orb-float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -40px) scale(1.05); }
-            66% { transform: translate(-20px, 20px) scale(0.95); }
-        }
-
-        /* ===== Layout ===== */
-        .page-wrapper {
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
-            width: 100%;
-        }
-
-        /* ===== Header ===== */
-        .header {
-            padding: 48px 0 20px;
-        }
-
-        .header-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            text-decoration: none;
-            color: var(--text-primary);
-        }
-
-        .logo-icon {
-            width: 40px; height: 40px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
-            color: #fff;
-            letter-spacing: -0.5px;
-        }
-
-        .logo-text {
-            font-size: 18px;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-        }
-
-        .header-links {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .header-link {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 14px;
-            border-radius: var(--radius-sm);
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-weight: 500;
-            transition: var(--transition-fast);
-            border: 1px solid transparent;
-        }
-
-        .header-link:hover {
-            color: var(--text-primary);
-            background: var(--bg-card);
-            border-color: var(--border-card);
-        }
-
-        .header-link svg {
-            width: 16px; height: 16px;
-            opacity: 0.7;
-        }
-
-        .header-link:hover svg {
-            opacity: 1;
-        }
-
-        /* ===== Hero Section ===== */
-        .hero {
-            padding: 40px 0 48px;
-            text-align: center;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 16px;
-            border-radius: 100px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-card);
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-bottom: 28px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        .hero-badge-dot {
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: var(--accent-green);
-            box-shadow: 0 0 8px var(--accent-green);
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-        }
-
-        .hero-title {
-            font-size: clamp(36px, 5vw, 56px);
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            line-height: 1.1;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #f0f0f5 0%, #a0a0b5 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(16px, 2vw, 19px);
-            color: var(--text-secondary);
-            max-width: 520px;
-            margin: 0 auto;
-            line-height: 1.7;
-            font-weight: 400;
-        }
-
-        /* ===== Bento Grid ===== */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            padding-bottom: 80px;
-        }
-
-        /* ===== Glass Card ===== */
-        .glass-card {
-            position: relative;
-            border-radius: var(--radius);
-            background: var(--bg-card);
-            border: 1px solid var(--border-card);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            overflow: hidden;
-            transition: var(--transition-smooth);
-            cursor: default;
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-            z-index: 1;
-        }
-
-        .glass-card:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--border-card-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Card glow effect on hover */
-        .glass-card .card-glow {
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .glass-card:hover .card-glow {
-            opacity: 1;
-        }
-
-        .card-glow-green { background: radial-gradient(circle at center, var(--glow-green), transparent 60%); }
-        .card-glow-blue { background: radial-gradient(circle at center, var(--glow-blue), transparent 60%); }
-        .card-glow-purple { background: radial-gradient(circle at center, var(--glow-purple), transparent 60%); }
-        .card-glow-amber { background: radial-gradient(circle at center, var(--glow-amber), transparent 60%); }
-        .card-glow-rose { background: radial-gradient(circle at center, var(--glow-rose), transparent 60%); }
-        .card-glow-cyan { background: radial-gradient(circle at center, var(--glow-cyan), transparent 60%); }
-
-        /* ===== Project Card ===== */
-        .project-card {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card-link {
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .project-preview {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 10;
-            overflow: hidden;
-            border-bottom: 1px solid var(--border-card);
-        }
-
-        .project-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .glass-card:hover .project-preview img {
-            transform: scale(1.05);
-        }
-
-        .project-preview-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 40%, rgba(10, 10, 15, 0.6) 100%);
-            pointer-events: none;
-        }
-
-        .project-status {
-            position: absolute;
-            top: 12px; right: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 4px 10px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            text-transform: uppercase;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            z-index: 2;
-        }
-
-        .status-live {
-            background: rgba(74, 222, 128, 0.15);
-            color: var(--accent-green);
-            border: 1px solid rgba(74, 222, 128, 0.2);
-        }
-
-        .status-live .status-dot {
-            width: 5px; height: 5px;
-            border-radius: 50%;
-            background: var(--accent-green);
-            box-shadow: 0 0 6px var(--accent-green);
-        }
-
-        .status-dev {
-            background: rgba(251, 191, 36, 0.15);
-            color: var(--accent-amber);
-            border: 1px solid rgba(251, 191, 36, 0.2);
-        }
-
-        .status-dev .status-dot {
-            width: 5px; height: 5px;
-            border-radius: 50%;
-            background: var(--accent-amber);
-        }
-
-        .project-body {
-            position: relative;
-            z-index: 1;
-            padding: 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-number {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-
-        .project-title {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-            line-height: 1.2;
-        }
-
-        .project-desc {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 16px;
-            flex: 1;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 16px;
-        }
-
-        .project-tag {
-            padding: 3px 10px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.2px;
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--text-secondary);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: var(--transition-fast);
-        }
-
-        .glass-card:hover .project-tag {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .project-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: auto;
-        }
-
-        .project-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            border-radius: var(--radius-xs);
-            font-size: 13px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: var(--transition-fast);
-            border: 1px solid transparent;
-        }
-
-        .project-btn svg {
-            width: 14px; height: 14px;
-        }
-
-        .btn-primary {
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--text-primary);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-primary:hover {
-            background: rgba(255, 255, 255, 0.14);
-            border-color: rgba(255, 255, 255, 0.18);
-        }
-
-        .btn-ghost {
-            color: var(--text-secondary);
-        }
-
-        .btn-ghost:hover {
-            color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .btn-disabled {
-            color: var(--text-muted);
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-
-        /* ===== Accent Colors per Card ===== */
-        .card-accent-green .project-title { color: #c8f7dc; }
-        .card-accent-green .project-number { color: var(--accent-green); }
-        .card-accent-blue .project-title { color: #c8dff7; }
-        .card-accent-blue .project-number { color: var(--accent-blue); }
-        .card-accent-cyan .project-title { color: #c8f5f7; }
-        .card-accent-cyan .project-number { color: var(--accent-cyan); }
-
-        /* ===== Footer ===== */
-        .footer {
-            margin-top: auto;
-            padding: 32px 0;
-            border-top: 1px solid var(--border-card);
-        }
-
-        .footer-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .footer-text {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 16px;
-        }
-
-        .footer-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 13px;
-            transition: var(--transition-fast);
-        }
-
-        .footer-link:hover {
-            color: var(--text-secondary);
-        }
-
-        /* ===== Entrance Animations ===== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
-
-        /* ===== Responsive ===== */
-        @media (max-width: 900px) {
-            .bento-grid {
-                grid-template-columns: 1fr;
-                gap: 14px;
-            }
-
-            .header {
-                padding: 32px 0 16px;
-            }
-
-            .hero {
-                padding: 32px 0 36px;
-            }
-
-            .hero-title {
-                font-size: 32px;
-            }
-
-            .project-title {
-                font-size: 20px;
-            }
-
-            .header-links {
-                gap: 4px;
-            }
-
-            .header-link span {
-                display: none;
-            }
-
-            .header-link {
-                padding: 8px 10px;
-            }
-        }
-
-        @media (min-width: 901px) and (max-width: 1100px) {
-            .bento-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .bento-grid .glass-card:last-child {
-                grid-column: 1 / -1;
-            }
-        }
-
-        /* ===== Scrollbar ===== */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ernie Gu — Projects</title>
+  <meta name="description" content="A curated collection of projects by Ernie Gu — from parenting resources to AI-powered solutions.">
+  <meta name="author" content="Ernie Gu (gzxultra)">
+  <meta property="og:title" content="Ernie Gu — Projects">
+  <meta property="og:description" content="Projects by Ernie Gu — from parenting resources to AI-powered solutions.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #FAFBFC;
+      --surface: #FFFFFF;
+      --text-primary: #111827;
+      --text-secondary: #6B7280;
+      --text-tertiary: #9CA3AF;
+      --border: rgba(0,0,0,0.06);
+      --border-hover: rgba(0,0,0,0.1);
+      --radius: 20px;
+      --radius-sm: 12px;
+      --shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.04);
+      --shadow-card-hover: 0 20px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.06);
+      --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Ambient background blobs */
+    .ambient {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .ambient-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+    }
+
+    .ambient-blob:nth-child(1) {
+      width: 500px;
+      height: 500px;
+      background: #DBEAFE;
+      top: -10%;
+      right: -5%;
+      animation: drift1 22s ease-in-out infinite;
+    }
+
+    .ambient-blob:nth-child(2) {
+      width: 400px;
+      height: 400px;
+      background: #FDE68A;
+      bottom: -5%;
+      left: -5%;
+      animation: drift2 26s ease-in-out infinite;
+    }
+
+    .ambient-blob:nth-child(3) {
+      width: 350px;
+      height: 350px;
+      background: #A7F3D0;
+      top: 40%;
+      left: 50%;
+      animation: drift3 20s ease-in-out infinite;
+    }
+
+    @keyframes drift1 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-30px, 20px); }
+    }
+    @keyframes drift2 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(25px, -30px); }
+    }
+    @keyframes drift3 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-20px, -25px); }
+    }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      padding: 28px 0;
+      position: relative;
+      z-index: 10;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-name {
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      box-shadow: var(--shadow-card);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+      box-shadow: var(--shadow-card-hover);
+      transform: translateY(-1px);
+    }
+
+    .nav-link svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 56px 0 40px;
+      text-align: center;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px 5px 10px;
+      background: var(--surface);
+      border-radius: 100px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      box-shadow: var(--shadow-card);
+      margin-bottom: 20px;
+    }
+
+    .hero-pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #34D399;
+      box-shadow: 0 0 8px rgba(52, 211, 153, 0.4);
+      animation: glow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(52, 211, 153, 0.4); }
+      50% { opacity: 0.5; box-shadow: 0 0 4px rgba(52, 211, 153, 0.2); }
+    }
+
+    .hero h1 {
+      font-size: clamp(34px, 5vw, 50px);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      line-height: 1.08;
+      margin-bottom: 14px;
+      color: var(--text-primary);
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto;
+      font-weight: 400;
+    }
+
+    /* ===== PROJECTS ===== */
+    .projects {
+      padding: 12px 0 80px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-card);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    /* Card image area */
+    .card-img-wrap {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      background: #F3F4F6;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .card:hover .card-img {
+      transform: scale(1.04);
+    }
+
+    /* Soft gradient overlay at bottom of image */
+    .card-img-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: linear-gradient(to top, var(--surface), transparent);
+      pointer-events: none;
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 2;
+    }
+
+    .card-badge.live {
+      background: rgba(255,255,255,0.88);
+      color: #059669;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .card-badge.live::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #059669;
+    }
+
+    .card-badge.dev {
+      background: rgba(255,255,255,0.88);
+      color: #D97706;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .card-badge.dev::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #D97706;
+    }
+
+    /* Card body */
+    .card-body {
+      padding: 22px 22px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-num {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      letter-spacing: 1.2px;
+      margin-bottom: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .card-title {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+
+    .card-desc {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 16px;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 16px;
+    }
+
+    .card-tag {
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--bg);
+    }
+
+    .card-action {
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .card-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .card-btn svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    .card-btn.muted {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 12.5px;
+      color: var(--text-tertiary);
+    }
+
+    .footer-gh {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+      color: var(--text-tertiary);
+      font-size: 12.5px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-gh:hover { color: var(--text-secondary); }
+
+    .footer-gh svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    /* ===== ENTRANCE ANIMATIONS ===== */
+    .anim-in {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: slideIn 0.55s ease forwards;
+    }
+
+    @keyframes slideIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .anim-in.d1 { animation-delay: 0.05s; }
+    .anim-in.d2 { animation-delay: 0.1s; }
+    .anim-in.d3 { animation-delay: 0.15s; }
+    .anim-in.d4 { animation-delay: 0.22s; }
+    .anim-in.d5 { animation-delay: 0.29s; }
+    .anim-in.d6 { animation-delay: 0.36s; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 920px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+        max-width: 460px;
+        margin: 0 auto;
+        gap: 16px;
+      }
+
+      .hero { padding: 40px 0 28px; }
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 15px; }
+      .card-img-wrap { height: 180px; }
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 0 16px; }
+      header { padding: 20px 0; }
+      .card-body { padding: 18px; }
+      .footer-inner {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Background Effects -->
-    <div class="bg-effects">
-        <div class="bg-gradient-orb"></div>
-        <div class="bg-gradient-orb"></div>
-        <div class="bg-gradient-orb"></div>
+  <!-- Ambient background -->
+  <div class="ambient">
+    <div class="ambient-blob"></div>
+    <div class="ambient-blob"></div>
+    <div class="ambient-blob"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <a href="/" class="logo">
+          <div class="logo-mark">EG</div>
+          <span class="logo-name">Ernie Gu</span>
+        </a>
+        <a href="https://github.com/gzxultra" target="_blank" rel="noopener" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
     </div>
-    <div class="bg-noise"></div>
+  </header>
 
-    <div class="page-wrapper">
-
-        <!-- Header -->
-        <header class="header">
-            <div class="container">
-                <div class="header-inner">
-                    <a href="/" class="logo">
-                        <div class="logo-icon">EG</div>
-                        <span class="logo-text">Ernie Gu</span>
-                    </a>
-                    <div class="header-links">
-                        <a href="https://github.com/gzxultra" target="_blank" rel="noopener" class="header-link">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                            <span>GitHub</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Hero -->
-        <section class="hero">
-            <div class="container">
-                <div class="hero-badge reveal">
-                    <span class="hero-badge-dot"></span>
-                    Building things that matter
-                </div>
-                <h1 class="hero-title reveal reveal-delay-1">Projects</h1>
-                <p class="hero-subtitle reveal reveal-delay-2">A curated collection of tools and products I've built — from parenting resources to AI-powered solutions.</p>
-            </div>
-        </section>
-
-        <!-- Bento Grid -->
-        <main class="container">
-            <div class="bento-grid">
-
-                <!-- Project 1: Lovevery Fans -->
-                <div class="glass-card project-card card-accent-green reveal reveal-delay-2">
-                    <div class="card-glow card-glow-green"></div>
-                    <a href="https://loveveryfans.com" target="_blank" rel="noopener" class="project-card-link">
-                        <div class="project-preview">
-                            <img src="assets/loveveryfans-preview.png" alt="Lovevery Fans Preview" loading="lazy">
-                            <div class="project-preview-overlay"></div>
-                            <div class="project-status status-live">
-                                <span class="status-dot"></span>
-                                Live
-                            </div>
-                        </div>
-                        <div class="project-body">
-                            <div class="project-number">01</div>
-                            <h3 class="project-title">Lovevery Fans</h3>
-                            <p class="project-desc">A bilingual toy comparison platform helping parents find the best developmental toys for every stage of their child's growth.</p>
-                            <div class="project-tags">
-                                <span class="project-tag">Next.js</span>
-                                <span class="project-tag">Bilingual</span>
-                                <span class="project-tag">Parenting</span>
-                                <span class="project-tag">SEO</span>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="project-body" style="padding-top: 0;">
-                        <div class="project-actions">
-                            <a href="https://loveveryfans.com" target="_blank" rel="noopener" class="project-btn btn-primary">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                                Visit Site
-                            </a>
-                            <a href="https://github.com/gzxultra/loveveryfans" target="_blank" rel="noopener" class="project-btn btn-ghost">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                                Source
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2: AI Daily Digest -->
-                <div class="glass-card project-card card-accent-blue reveal reveal-delay-3">
-                    <div class="card-glow card-glow-blue"></div>
-                    <a href="https://gzxultra.github.io/ai-daily-digest/" target="_blank" rel="noopener" class="project-card-link">
-                        <div class="project-preview">
-                            <img src="assets/ai-daily-digest-preview.png" alt="AI Daily Digest Preview" loading="lazy">
-                            <div class="project-preview-overlay"></div>
-                            <div class="project-status status-live">
-                                <span class="status-dot"></span>
-                                Live
-                            </div>
-                        </div>
-                        <div class="project-body">
-                            <div class="project-number">02</div>
-                            <h3 class="project-title">AI Daily Digest</h3>
-                            <p class="project-desc">Automated AI news curation platform that aggregates and summarizes the latest developments in artificial intelligence every day.</p>
-                            <div class="project-tags">
-                                <span class="project-tag">AI</span>
-                                <span class="project-tag">Automation</span>
-                                <span class="project-tag">News</span>
-                                <span class="project-tag">LLM</span>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="project-body" style="padding-top: 0;">
-                        <div class="project-actions">
-                            <a href="https://gzxultra.github.io/ai-daily-digest/" target="_blank" rel="noopener" class="project-btn btn-primary">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                                Visit Site
-                            </a>
-                            <a href="https://github.com/gzxultra/ai-daily-digest" target="_blank" rel="noopener" class="project-btn btn-ghost">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                                Source
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3: MediMatch -->
-                <div class="glass-card project-card card-accent-cyan reveal reveal-delay-4">
-                    <div class="card-glow card-glow-cyan"></div>
-                    <div class="project-card-link" style="cursor: default;">
-                        <div class="project-preview">
-                            <img src="assets/medimatch-preview.png" alt="MediMatch Preview" loading="lazy">
-                            <div class="project-preview-overlay"></div>
-                            <div class="project-status status-dev">
-                                <span class="status-dot"></span>
-                                In Dev
-                            </div>
-                        </div>
-                        <div class="project-body">
-                            <div class="project-number">03</div>
-                            <h3 class="project-title">MediMatch</h3>
-                            <p class="project-desc">AI-powered medical information matching system that helps healthcare professionals quickly find relevant patient data and protocols.</p>
-                            <div class="project-tags">
-                                <span class="project-tag">Healthcare</span>
-                                <span class="project-tag">AI</span>
-                                <span class="project-tag">Python</span>
-                                <span class="project-tag">NLP</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-body" style="padding-top: 0;">
-                        <div class="project-actions">
-                            <span class="project-btn btn-disabled">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                                Coming Soon
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="footer-inner">
-                    <span class="footer-text">&copy; 2025 Ernie Gu</span>
-                    <div class="footer-links">
-                        <a href="https://github.com/gzxultra" target="_blank" rel="noopener" class="footer-link">GitHub</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-pill anim-in d1">
+        <span class="hero-pill-dot"></span>
+        Building things that matter
+      </div>
+      <h1 class="anim-in d2">Projects</h1>
+      <p class="anim-in d3">A curated collection of tools and products I've built — from parenting resources to AI-powered solutions.</p>
     </div>
+  </section>
 
-    <script>
-        // Intersection Observer for reveal animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -40px 0px'
-        });
+  <!-- Projects -->
+  <section class="projects">
+    <div class="container">
+      <div class="projects-grid">
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        <!-- 01 Lovevery Fans -->
+        <a href="https://loveveryfans.com" target="_blank" rel="noopener" class="card anim-in d4">
+          <div class="card-img-wrap">
+            <img src="assets/loveveryfans-preview.png" alt="Lovevery Fans preview" class="card-img" loading="lazy">
+            <span class="card-badge live">Live</span>
+          </div>
+          <div class="card-body">
+            <span class="card-num">01</span>
+            <h3 class="card-title">Lovevery Fans</h3>
+            <p class="card-desc">A bilingual toy comparison platform helping parents find the best developmental toys for every stage of their child's growth.</p>
+            <div class="card-tags">
+              <span class="card-tag">Next.js</span>
+              <span class="card-tag">Bilingual</span>
+              <span class="card-tag">Parenting</span>
+              <span class="card-tag">SEO</span>
+            </div>
+            <div class="card-action">
+              <span class="card-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Visit Site
+              </span>
+            </div>
+          </div>
+        </a>
 
-        // Interactive glow effect following mouse
-        document.querySelectorAll('.glass-card').forEach(card => {
-            const glow = card.querySelector('.card-glow');
-            if (!glow) return;
+        <!-- 02 AI Daily Digest -->
+        <a href="https://aidailydigest.com" target="_blank" rel="noopener" class="card anim-in d5">
+          <div class="card-img-wrap">
+            <img src="assets/ai-daily-digest-preview.png" alt="AI Daily Digest preview" class="card-img" loading="lazy">
+            <span class="card-badge live">Live</span>
+          </div>
+          <div class="card-body">
+            <span class="card-num">02</span>
+            <h3 class="card-title">AI Daily Digest</h3>
+            <p class="card-desc">Automated AI news curation platform that aggregates and summarizes the latest developments in artificial intelligence every day.</p>
+            <div class="card-tags">
+              <span class="card-tag">AI</span>
+              <span class="card-tag">Automation</span>
+              <span class="card-tag">News</span>
+              <span class="card-tag">LLM</span>
+            </div>
+            <div class="card-action">
+              <span class="card-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Visit Site
+              </span>
+            </div>
+          </div>
+        </a>
 
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                glow.style.left = `${x - rect.width}px`;
-                glow.style.top = `${y - rect.height}px`;
-            });
-        });
-    </script>
+        <!-- 03 MediMatch -->
+        <div class="card anim-in d6">
+          <div class="card-img-wrap">
+            <img src="assets/medimatch-preview.png" alt="MediMatch preview" class="card-img" loading="lazy">
+            <span class="card-badge dev">In Dev</span>
+          </div>
+          <div class="card-body">
+            <span class="card-num">03</span>
+            <h3 class="card-title">MediMatch</h3>
+            <p class="card-desc">AI-powered medical information matching system that helps healthcare professionals quickly find relevant patient data and protocols.</p>
+            <div class="card-tags">
+              <span class="card-tag">Healthcare</span>
+              <span class="card-tag">AI</span>
+              <span class="card-tag">Python</span>
+              <span class="card-tag">NLP</span>
+            </div>
+            <div class="card-action">
+              <span class="card-btn muted">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Coming Soon
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-copy">&copy; 2025 Ernie Gu</span>
+        <a href="https://github.com/gzxultra" target="_blank" rel="noopener" class="footer-gh">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </footer>
 
 </body>
 </html>
