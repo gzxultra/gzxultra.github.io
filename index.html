@@ -1,932 +1,1079 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="utf-8">
-<title>Zephyr</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ernie Gu — Projects & Portfolio</title>
+    <meta name="description" content="Software Engineer based in Seattle. Building tools that matter — from AI-powered news to parenting resources and healthcare tech.">
+    <meta name="author" content="Ernie Gu (gzxultra)">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #16161f;
+            --bg-card-hover: #1c1c28;
+            --text-primary: #f0f0f5;
+            --text-secondary: #9898a8;
+            --text-muted: #5a5a6e;
+            --accent-1: #6c5ce7;
+            --accent-2: #00cec9;
+            --accent-3: #fd79a8;
+            --accent-4: #ffeaa7;
+            --gradient-1: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            --gradient-2: linear-gradient(135deg, #00cec9, #55efc4);
+            --gradient-3: linear-gradient(135deg, #fd79a8, #fab1a0);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --shadow-card-hover: 0 12px 48px rgba(0, 0, 0, 0.5);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+        }
 
+        html { scroll-behavior: smooth; }
 
-    
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Zephyr">
-<meta property="og:url" content="https://gzxultra.github.io/index.html">
-<meta property="og:site_name" content="Zephyr">
-<meta property="og:locale" content="en">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zephyr">
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
+        /* ===== Animated Background ===== */
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(108, 92, 231, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(108, 92, 231, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
 
+        .bg-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+        }
 
+        .bg-glow-1 { top: -200px; right: -100px; background: var(--accent-1); }
+        .bg-glow-2 { bottom: -200px; left: -100px; background: var(--accent-2); animation-delay: -10s; }
+        .bg-glow-3 { top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--accent-3); width: 400px; height: 400px; opacity: 0.08; animation-delay: -5s; }
 
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(20px, 10px) scale(1.02); }
+        }
 
+        /* ===== Layout ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
 
+        /* ===== Navigation ===== */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 16px 0;
+            transition: var(--transition);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(10, 10, 15, 0.7);
+            border-bottom: 1px solid transparent;
+        }
 
-<link rel="icon" href="/images/favicon.svg">
+        .nav.scrolled { border-bottom-color: var(--border-color); }
 
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
 
+        .nav-logo-icon {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            color: white;
+        }
 
-    
-    
-    
-    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
-    
+        .nav-logo-text { font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
 
-    
-    
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
-    
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
 
-    
-    
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+            border-radius: 1px;
+        }
 
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after { width: 100%; }
 
-    
-    
-    
-    
+        .nav-github {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
 
-<link rel="stylesheet" href="/css/back-to-top.css">
+        .nav-github:hover {
+            border-color: var(--accent-1);
+            color: var(--text-primary);
+            background: rgba(108, 92, 231, 0.1);
+        }
 
+        .nav-github svg { width: 18px; height: 18px; fill: currentColor; }
 
-    
-    
+        /* ===== Hero Section ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 0 80px;
+            position: relative;
+        }
 
-    
-    
-    
-    
+        .hero-content { text-align: center; max-width: 800px; }
 
-    
-    
-<link rel="stylesheet" href="/css/progressbar.css">
-<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(108, 92, 231, 0.1);
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            color: var(--accent-1);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 32px;
+            animation: fadeInUp 0.8s ease forwards;
+        }
 
-    
-    
-    
+        .hero-badge .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--accent-2);
+            animation: pulse 2s ease-in-out infinite;
+        }
 
-    
-    
-    
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
 
+        .hero h1 {
+            font-size: clamp(40px, 7vw, 80px);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease 0.1s forwards;
+            opacity: 0;
+        }
 
-<link rel="stylesheet" href="/css/style.css">
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe, #00cec9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2.5vw, 20px);
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-family: var(--font-main);
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px; left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 12px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .scroll-indicator .line {
+            width: 1px; height: 40px;
+            background: linear-gradient(to bottom, var(--text-muted), transparent);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== Section Common ===== */
+        .section { padding: 100px 0; }
+
+        .section-header { text-align: center; margin-bottom: 64px; }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--accent-1);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            width: 24px; height: 1px;
+            background: var(--accent-1);
+            opacity: 0.4;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 16px;
+            max-width: 500px;
+            margin: 16px auto 0;
+        }
+
+        /* ===== Project Cards ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        .project-card {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 400px;
+        }
+
+        .project-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-card-hover);
+            transform: translateY(-4px);
+        }
+
+        .project-card:nth-child(even) { direction: rtl; }
+        .project-card:nth-child(even) > * { direction: ltr; }
+
+        .project-card-visual {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card-visual img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover .project-card-visual img { transform: scale(1.05); }
+
+        .project-card-visual::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+        }
+
+        .project-card-content {
+            padding: 48px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-number {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .project-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            width: fit-content;
+        }
+
+        .project-tag-live {
+            background: rgba(0, 206, 201, 0.1);
+            color: var(--accent-2);
+            border: 1px solid rgba(0, 206, 201, 0.2);
+        }
+
+        .project-tag-dev {
+            background: rgba(255, 234, 167, 0.1);
+            color: var(--accent-4);
+            border: 1px solid rgba(255, 234, 167, 0.2);
+        }
+
+        .project-tag .tag-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+        }
+
+        .project-tag-live .tag-dot { background: var(--accent-2); }
+        .project-tag-dev .tag-dot { background: var(--accent-4); animation: pulse 2s ease-in-out infinite; }
+
+        .project-title {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+
+        .project-tech span {
+            padding: 4px 12px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        .project-links { display: flex; gap: 12px; }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .project-link-primary {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .project-link-primary:hover {
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .project-link-secondary {
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .project-link-secondary:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+        }
+
+        .project-link svg { width: 16px; height: 16px; fill: currentColor; }
+
+        /* Card accent borders */
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            z-index: 2;
+        }
+
+        .project-card:nth-child(1)::before { background: var(--gradient-1); }
+        .project-card:nth-child(2)::before { background: var(--gradient-2); }
+        .project-card:nth-child(3)::before { background: var(--gradient-3); }
+
+        /* ===== Stats Section ===== */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            padding: 60px 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 32px 20px;
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+        }
+
+        .stat-card:nth-child(1) .stat-number { color: var(--accent-1); }
+        .stat-card:nth-child(2) .stat-number { color: var(--accent-2); }
+        .stat-card:nth-child(3) .stat-number { color: var(--accent-3); }
+        .stat-card:nth-child(4) .stat-number { color: var(--accent-4); }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ===== About Section ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .about-avatar { position: relative; }
+
+        .about-avatar img {
+            width: 100%; max-width: 300px;
+            border-radius: var(--radius-xl);
+            border: 2px solid var(--border-color);
+        }
+
+        .about-avatar::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: calc(var(--radius-xl) + 4px);
+            background: var(--gradient-1);
+            z-index: -1;
+            opacity: 0.3;
+            filter: blur(20px);
+        }
+
+        .about-text h3 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .about-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .about-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .about-info-item svg { width: 16px; height: 16px; fill: var(--accent-1); }
+
+        /* ===== Footer ===== */
+        .footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-text { color: var(--text-muted); font-size: 14px; }
+
+        .footer-links { display: flex; gap: 24px; }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover { color: var(--text-primary); }
+
+        /* ===== Scroll Animations ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ===== Mobile Menu ===== */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px; height: 2px;
+            background: var(--text-primary);
+            margin: 5px 0;
+            transition: var(--transition);
+            border-radius: 1px;
+        }
+
+        /* ===== Cursor glow ===== */
+        .cursor-glow {
+            position: fixed;
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(108, 92, 231, 0.06), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .project-card {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+            .project-card:nth-child(even) { direction: ltr; }
+            .project-card-visual { height: 260px; }
+            .project-card-content { padding: 32px; }
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            .about-avatar { display: flex; justify-content: center; }
+            .about-avatar img { max-width: 200px; }
+            .about-info { justify-content: center; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-github { display: none; }
+            .nav-toggle { display: block; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: rgba(10, 10, 15, 0.95);
+                backdrop-filter: blur(20px);
+                padding: 24px;
+                gap: 20px;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .hero { padding: 100px 0 60px; min-height: auto; }
+            .hero h1 { font-size: 36px; }
+            .hero-cta { flex-direction: column; }
+            .section { padding: 60px 0; }
+            .project-title { font-size: 24px; }
+            .project-card-content { padding: 24px; }
+            .stats { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .stat-card { padding: 20px 12px; }
+            .stat-number { font-size: 28px; }
+            .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+            .scroll-indicator { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 16px; }
+            .hero h1 { font-size: 30px; }
+            .project-card-visual { height: 200px; }
+        }
+    </style>
 </head>
-<body class="is-3-column">
-    <nav class="navbar navbar-main">
-    <div class="container">
-        <div class="navbar-brand is-flex-center">
-            <a class="navbar-item navbar-logo" href="/">
-            
-                <img src="/images/logo.svg" alt="Zephyr" height="28">
-            
+<body>
+    <!-- Background Effects -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <div class="nav-logo-icon">E</div>
+                <span class="nav-logo-text">ernie.dev</span>
             </a>
-        </div>
-        <div class="navbar-menu">
-            
-            <div class="navbar-start">
-                
-                <a class="navbar-item is-active" href="/">Home</a>
-                
-                <a class="navbar-item" href="/archives">Archives</a>
-                
-                <a class="navbar-item" href="/categories">Categories</a>
-                
-                <a class="navbar-item" href="/tags">Tags</a>
-                
-                <a class="navbar-item" href="/about">About</a>
-                
-            </div>
-            
-            <div class="navbar-end">
-                
-                    
-                    
-                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
-                        
-                        <i class="fab fa-github"></i>
-                        
-                    </a>
-                    
-                
-                
-                
-                <a class="navbar-item search" title="Search" href="javascript:;">
-                    <i class="fas fa-search"></i>
-                </a>
-                
-            </div>
-        </div>
-    </div>
-</nav>
-    
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-03-31T05:41:16.000Z">2019-03-31</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/Tool/">Tool</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    a minute read (About 162 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/03/31/ctags/">ctags</a>
-            
-        </h1>
-        <div class="content">
-            <p>Ctags is a tool that makes it easy to navigate large source code projects. It provides some of the features that you may be used to using in Eclipse or other IDEs, such as the ability to jump from the current source file to definitions of functions and structures in other files. Ctags will make it much easier to find the Linux kernel files that you have to modify for your CSE 451 projects. Ctags also supports many languages besides C, so you may find it useful for future projects.</p>
-<p>Ctags should already be installed on CSE instructional servers such as forkbomb and attu. Ctags is first run on its own to generate a “tags” file, then it is invoked from within another Linux text editor such as Emacs or Vim.</p>
-<p>These steps assume you want to use Ctags on the Linux kernel, but should generalize to other projects.</p>
-<p><a href="https://courses.cs.washington.edu/courses/cse451/10au/tutorials/tutorial_ctags.html" target="_blank" rel="noopener">Ctags Tutorial</a></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/03/31/HTTP-CODE/" class="image is-7by1">
-            <img class="thumbnail" src="https://i.imgur.com/jqczRYe.png" alt="HTTP-CODE">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-03-31T05:13:34.000Z">2019-03-31</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/Network/">Network</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    11 minutes read (About 1626 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/03/31/HTTP-CODE/">HTTP-CODE</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="Information-responses"><a href="#Information-responses" class="headerlink" title="Information responses"></a>Information responses</h2><h3 id="100-Continue"><a href="#100-Continue" class="headerlink" title="100 Continue"></a>100 Continue</h3><p>This interim response indicates that everything so far is OK and that the client should continue with the request or ignore it if it is already finished.<br>101 Switching Protocol<br>This code is sent in response to an Upgrade: request header by the client, and indicates that the protocol the server is switching too. It was introduced to allow migration to an incompatible protocol version, and is not in common use.</p>
-<h2 id="Successful-responses"><a href="#Successful-responses" class="headerlink" title="Successful responses"></a>Successful responses</h2><h3 id="200-OK"><a href="#200-OK" class="headerlink" title="200 OK"></a>200 OK</h3><p>The request has succeeded. The meaning of a success varies depending on the HTTP method:</p>
-<ul>
-<li>GET: The resource has been fetched and is transmitted in the message body.</li>
-<li>HEAD: The entity headers are in the message body.</li>
-<li>POST: The resource describing the result of the action is transmitted in the message body.</li>
-<li>TRACE: The message body contains the request message as received by the server</li>
-</ul>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/03/31/HTTP-CODE/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-03-26T00:51:08.076Z">2019-03-25</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    a minute read (About 121 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/03/25/hello-world/">Hello World</a>
-            
-        </h1>
-        <div class="content">
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="hljs-string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-</div>
-                
-
-
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <nav class="level">
-            <div class="level-item has-text-centered">
-                <div>
-                    
-                        <figure class="image container is-128x128 has-mb-6">
-                            <img class="is-rounded" src="https://www.gravatar.com/avatar/daf7799463307a7a11d99f7c9752df75?s=128" alt="Zhixiang Gu">
-                        </figure>
-                    
-                    
-                    <p class="is-size-4 is-block">
-                        Zhixiang Gu
-                    </p>
-                    
-                    
-                    <p class="is-size-6 is-block">
-                        Software Engineer
-                    </p>
-                    
-                    
-                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
-                        <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span>Bloomington, IN</span>
-                    </p>
-                    
-                </div>
-            </div>
-        </nav>
-        <nav class="level is-mobile">
-            <div class="level-item has-text-centered is-marginless">
-                <div>
-                    <p class="heading">
-                        Posts
-                    </p>
-                    <p class="title has-text-weight-normal">
-                        3
-                    </p>
-                </div>
-            </div>
-            <div class="level-item has-text-centered is-marginless">
-                <div>
-                    <p class="heading">
-                        Categories
-                    </p>
-                    <p class="title has-text-weight-normal">
-                        2
-                    </p>
-                </div>
-            </div>
-            <div class="level-item has-text-centered is-marginless">
-                <div>
-                    <p class="heading">
-                        Tags
-                    </p>
-                    <p class="title has-text-weight-normal">
-                        2
-                    </p>
-                </div>
-            </div>
-        </nav>
-        <div class="level">
-            <a class="level-item button is-link is-rounded" href="http://github.com/gzxultra" target="_blank">
-                Follow</a>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/gzxultra">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://www.facebook.com/profile.php?id=100004054314011">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
-    </div>
-</div>
-    
-        
-    
-        
-
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            Links
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://hexo.io" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">Hexo</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">hexo.io</span>
-                    </span>
-                </a>
-            </li>
-        
-            <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">PPOffice</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">github.com</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                Categories
-            </h3>
-            <ul class="menu-list">
-            <li>
-        <a class="level is-marginless" href="/categories/Network/">
-            <span class="level-start">
-                <span class="level-item">Network</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Tool/">
-            <span class="level-start">
-                <span class="level-item">Tool</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#about">About</a></li>
             </ul>
+            <a href="https://github.com/gzxultra" target="_blank" class="nav-github" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                GitHub
+            </a>
         </div>
-    </div>
-</div>
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            Tag Cloud
-        </h3>
-        <a href="/tags/Cpp/" style="font-size: 10px;">Cpp</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a>
-    </div>
-</div>
+    </nav>
 
-    
-    
-        <div class="column-right-shadow is-hidden-widescreen ">
-        
-            
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            Recent
-        </h3>
-        
-        <article class="media">
-            
-            <a href="/2019/03/31/ctags/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ctags">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-31T05:41:16.000Z">2019-03-31</time></div>
-                    <a href="/2019/03/31/ctags/" class="has-link-black-ter is-size-6">ctags</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Tool/">Tool</a>
-                    </p>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Building in public
                 </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/03/31/HTTP-CODE/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://i.imgur.com/jqczRYe.png" alt="HTTP-CODE">
+                <h1>
+                    Crafting Digital<br>
+                    <span class="gradient-text">Experiences</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Software Engineer based in Seattle. Building tools that matter &mdash; from AI-powered news curation to parenting resources and healthcare technology.
                 </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-31T05:13:34.000Z">2019-03-31</time></div>
-                    <a href="/2019/03/31/HTTP-CODE/" class="has-link-black-ter is-size-6">HTTP-CODE</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Network/">Network</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/03/25/hello-world/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-26T00:51:08.076Z">2019-03-25</time></div>
-                    <a href="/2019/03/25/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-    </div>
-</div>
-
-        
-            <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            Archives
-        </h3>
-        <ul class="menu-list">
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/03/">
-                <span class="level-start">
-                    <span class="level-item">March 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">3</span>
-                </span>
-            </a>
-        </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-        
-            <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                Tags
-            </h3>
-            <div class="field is-grouped is-grouped-multiline">
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/Cpp/">
-                        <span class="tag">Cpp</span>
-                        <span class="tag is-grey">1</span>
+                <div class="hero-cta">
+                    <a href="#projects" class="btn btn-primary">
+                        View Projects
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
+                    </a>
+                    <a href="https://github.com/gzxultra" target="_blank" class="btn btn-secondary" rel="noopener">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        GitHub Profile
                     </a>
                 </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/Network/">
-                        <span class="tag">Network</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
             </div>
         </div>
-    </div>
-</div>
-        
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="line"></div>
         </div>
-    
-</div>
+    </section>
 
-                
-
-
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            Recent
-        </h3>
-        
-        <article class="media">
-            
-            <a href="/2019/03/31/ctags/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ctags">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-31T05:41:16.000Z">2019-03-31</time></div>
-                    <a href="/2019/03/31/ctags/" class="has-link-black-ter is-size-6">ctags</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Tool/">Tool</a>
-                    </p>
+    <!-- Stats Section -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="stats reveal">
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Active Projects</div>
                 </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/03/31/HTTP-CODE/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://i.imgur.com/jqczRYe.png" alt="HTTP-CODE">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-31T05:13:34.000Z">2019-03-31</time></div>
-                    <a href="/2019/03/31/HTTP-CODE/" class="has-link-black-ter is-size-6">HTTP-CODE</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Network/">Network</a>
-                    </p>
+                <div class="stat-card">
+                    <div class="stat-number">29</div>
+                    <div class="stat-label">Public Repos</div>
                 </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/03/25/hello-world/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-26T00:51:08.076Z">2019-03-25</time></div>
-                    <a href="/2019/03/25/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
+                <div class="stat-card">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Live Websites</div>
                 </div>
-            </div>
-        </article>
-        
-    </div>
-</div>
-
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            Archives
-        </h3>
-        <ul class="menu-list">
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/03/">
-                <span class="level-start">
-                    <span class="level-item">March 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">3</span>
-                </span>
-            </a>
-        </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                Tags
-            </h3>
-            <div class="field is-grouped is-grouped-multiline">
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/Cpp/">
-                        <span class="tag">Cpp</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
+                <div class="stat-card">
+                    <div class="stat-number">&infin;</div>
+                    <div class="stat-label">Curiosity</div>
                 </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/Network/">
-                        <span class="tag">Network</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-</div>
-    
-    
-</div>
-
             </div>
         </div>
     </section>
-    <footer class="footer">
-    <div class="container">
-        <div class="level">
-            <div class="level-start has-text-centered-mobile">
-                <a class="footer-logo is-block has-mb-6" href="/">
-                
-                    <img src="/images/logo.svg" alt="Zephyr" height="28">
-                
-                </a>
-                <p class="is-size-7">
-                &copy; 2019 Zhixiang Gu&nbsp;
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
-                
-                </p>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Featured Projects</div>
+                <h2 class="section-title">What I've Been Building</h2>
+                <p class="section-desc">A collection of projects spanning AI, parenting, and healthcare.</p>
             </div>
-            <div class="level-end">
-            
-                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
-                
-                
-                <p class="control">
-                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
-                        
-                        <i class="fab fa-creative-commons"></i>
-                        
-                    </a>
-                </p>
-                
-                <p class="control">
-                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
-                        
-                        <i class="fab fa-creative-commons-by"></i>
-                        
-                    </a>
-                </p>
-                
-                <p class="control">
-                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
-                        
-                        <i class="fab fa-github"></i>
-                        
-                    </a>
-                </p>
-                
+
+            <div class="projects-grid">
+                <!-- Project 1: Lovevery Fans -->
+                <div class="project-card reveal">
+                    <div class="project-card-visual">
+                        <img src="assets/loveveryfans-preview.png" alt="Lovevery Fans website preview" loading="lazy">
+                    </div>
+                    <div class="project-card-content">
+                        <div class="project-number">01</div>
+                        <div class="project-tag project-tag-live">
+                            <span class="tag-dot"></span>
+                            Live
+                        </div>
+                        <h3 class="project-title">Lovevery Fans</h3>
+                        <p class="project-desc">
+                            A comprehensive Chinese-language guide for Lovevery Play Kits, featuring detailed toy comparisons, Amazon-friendly alternatives with affiliate links, and a community built by parents who love Montessori-inspired play.
+                        </p>
+                        <div class="project-tech">
+                            <span>TypeScript</span>
+                            <span>React</span>
+                            <span>Montessori</span>
+                            <span>Affiliate</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://loveveryfans.com" target="_blank" class="project-link project-link-primary" rel="noopener">
+                                Visit Site
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
+                            </a>
+                            <a href="https://github.com/gzxultra/loveveryfans" target="_blank" class="project-link project-link-secondary" rel="noopener">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                Source
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            
+
+                <!-- Project 2: AI Daily Digest -->
+                <div class="project-card reveal">
+                    <div class="project-card-visual">
+                        <img src="assets/ai-daily-digest-preview.png" alt="AI Daily Digest website preview" loading="lazy">
+                    </div>
+                    <div class="project-card-content">
+                        <div class="project-number">02</div>
+                        <div class="project-tag project-tag-live">
+                            <span class="tag-dot"></span>
+                            Live
+                        </div>
+                        <h3 class="project-title">AI Daily Digest</h3>
+                        <p class="project-desc">
+                            An automated AI news aggregation platform that curates the most important developments in artificial intelligence daily. Powered by LLM-based content filtering and summarization, delivering curated insights from top AI sources.
+                        </p>
+                        <div class="project-tech">
+                            <span>TypeScript</span>
+                            <span>LLM</span>
+                            <span>Automation</span>
+                            <span>News Curation</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://gzxultra.github.io/ai-daily-digest/" target="_blank" class="project-link project-link-primary" rel="noopener">
+                                Visit Site
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M7 7h10v10"/></svg>
+                            </a>
+                            <a href="https://github.com/gzxultra/ai-daily-digest" target="_blank" class="project-link project-link-secondary" rel="noopener">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                Source
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: MediMatch -->
+                <div class="project-card reveal">
+                    <div class="project-card-visual">
+                        <img src="assets/medimatch-preview.png" alt="MediMatch platform preview" loading="lazy">
+                    </div>
+                    <div class="project-card-content">
+                        <div class="project-number">03</div>
+                        <div class="project-tag project-tag-dev">
+                            <span class="tag-dot"></span>
+                            In Development &middot; V5.3
+                        </div>
+                        <h3 class="project-title">MediMatch</h3>
+                        <p class="project-desc">
+                            A medical information matching platform designed to intelligently connect patients with relevant healthcare resources. Currently in active development with advanced matching algorithms and a focus on accessibility and accuracy.
+                        </p>
+                        <div class="project-tech">
+                            <span>Healthcare</span>
+                            <span>AI Matching</span>
+                            <span>Full-Stack</span>
+                            <span>V5.3</span>
+                        </div>
+                        <div class="project-links">
+                            <span class="project-link project-link-secondary" style="cursor: default; opacity: 0.5;">
+                                Coming Soon
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
-<script>moment.locale("en");</script>
+    </section>
 
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">About Me</div>
+                <h2 class="section-title">The Person Behind the Code</h2>
+            </div>
+            <div class="about-grid reveal">
+                <div class="about-avatar">
+                    <img src="https://avatars.githubusercontent.com/u/10581586?v=4" alt="Ernie Gu" loading="lazy">
+                </div>
+                <div class="about-text">
+                    <h3>Hi, I'm Ernie</h3>
+                    <p>
+                        A software engineer based in Seattle who believes in building things that make a real difference. From helping parents discover the best educational toys for their children, to automating the daily flood of AI news into digestible insights, to building healthcare technology that connects people with the right resources &mdash; every project starts with a problem worth solving.
+                    </p>
+                    <p>
+                        I'm passionate about leveraging modern web technologies and AI to create tools that are not only functional but delightful to use. When I'm not coding, you'll find me exploring the Pacific Northwest or diving into the latest AI research.
+                    </p>
+                    <div class="about-info">
+                        <div class="about-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            Seattle, WA
+                        </div>
+                        <div class="about-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M20 6H16V4C16 2.89 15.11 2 14 2H10C8.89 2 8 2.89 8 4V6H4C2.89 6 2.01 6.89 2.01 8L2 19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM14 6H10V4H14V6Z"/></svg>
+                            Software Engineer
+                        </div>
+                        <div class="about-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                            gzxultra
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    
-    
-    
-    <script src="/js/animation.js"></script>
-    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-text">
+                    &copy; 2025 Ernie Gu. Built with care in Seattle.
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com/gzxultra" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://loveveryfans.com" target="_blank" rel="noopener">Lovevery Fans</a>
+                    <a href="https://gzxultra.github.io/ai-daily-digest/" target="_blank" rel="noopener">AI Daily Digest</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
-    <script src="/js/gallery.js" defer></script>
-    
+    <script>
+        // Scroll Reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        reveals.forEach(el => observer.observe(el));
 
-    
-    
-
-<div id="outdated">
-    <h6>Your browser is out-of-date!</h6>
-    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
-            my browser now </a></p>
-    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        outdatedBrowser({
-            bgColor: '#f25648',
-            color: '#ffffff',
-            lowerThan: 'flex'
+        // Nav scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 50);
         });
-    });
-</script>
 
+        // Mobile menu toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => navLinks.classList.remove('open'));
+        });
 
-    
-    
-<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    MathJax.Hub.Config({
-        'HTML-CSS': {
-            matchFontHeight: false
-        },
-        SVG: {
-            matchFontHeight: false
-        },
-        CommonHTML: {
-            matchFontHeight: false
-        },
-        tex2jax: {
-            inlineMath: [
-                ['$','$'],
-                ['\\(','\\)']
-            ]
+        // Cursor glow effect
+        const cursorGlow = document.getElementById('cursorGlow');
+        let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
+        document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+        function animateGlow() {
+            glowX += (mouseX - glowX) * 0.08;
+            glowY += (mouseY - glowY) * 0.08;
+            cursorGlow.style.left = glowX + 'px';
+            cursorGlow.style.top = glowY + 'px';
+            requestAnimationFrame(animateGlow);
         }
-    });
-});
-</script>
+        animateGlow();
 
-    
-    
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
 
-<a id="back-to-top" title="Back to Top" href="javascript:;">
-    <i class="fas fa-chevron-up"></i>
-</a>
-<script src="/js/back-to-top.js" defer></script>
-
-
-    
-    
-
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
-    <script src="/js/clipboard.js" defer></script>
-    
-
-    
-    
-    
-
-
-<script src="/js/main.js" defer></script>
-
-    
-    <div class="searchbox ins-search">
-    <div class="searchbox-container ins-search-container">
-        <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
-            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
-        </div>
-        <div class="searchbox-result-wrapper ins-section-wrapper">
-            <div class="ins-section-container"></div>
-        </div>
-    </div>
-</div>
-<script>
-    (function (window) {
-        var INSIGHT_CONFIG = {
-            TRANSLATION: {
-                POSTS: 'Posts',
-                PAGES: 'Pages',
-                CATEGORIES: 'Categories',
-                TAGS: 'Tags',
-                UNTITLED: '(Untitled)',
-            },
-            CONTENT_URL: '/content.json',
-        };
-        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-    })(window);
-</script>
-<script src="/js/insight.js" defer></script>
-<link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css">
-    
+        // Parallax on project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                card.style.transform = `translateY(-4px) perspective(1000px) rotateY(${x * 3}deg) rotateX(${-y * 3}deg)`;
+            });
+            card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+        });
+    </script>
 </body>
 </html>
